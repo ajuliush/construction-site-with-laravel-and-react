@@ -70,15 +70,14 @@ const Footer = () => {
               </li>
               <p>
                 Lorem Ipsum is simply dummy <br /> text of the printing <br />
-                and typesetting industry.{" "}
+                and typesetting industry.
               </p>
             </ul>
           </div>
           <hr />
           <p className="text-center py-4">
-            {" "}
             Copyright @ 2024 Lorem Ipsum is simply dummy text of the printing
-            and typesetting industry.{" "}
+            and typesetting industry.
           </p>
         </div>
       </div>

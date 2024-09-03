@@ -2,13 +2,13 @@ import React from 'react'
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 
-const About = () => {
+const Projects = () => {
   return (
     <>
     <Header/>
     <main>
       <div className='container'>
-        About
+        Projects
       </div>
     </main>
     <Footer/>
@@ -16,4 +16,4 @@ const About = () => {
   )
 }
 
-export default About
+export default Projects

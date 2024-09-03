@@ -15,10 +15,10 @@ const Home = () => {
                 <span>Welcome Amazing Construction</span>
                 <h1>
                   Crafting dreams with <br />
-                  precience and excellence.
+                  prescience and excellence.
                 </h1>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Lorem ipsum dolor sit amat consectetur adipisicing edit.
                   <br />
                   Dolores praesentium, aut accusantium quos, rerum.
                 </p>
