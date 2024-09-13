@@ -14,31 +14,66 @@ const Contact = () => {
           heading='contact us'
           text='Lorem ipsum dolor sit amat consectetur adipisicing edit<br/>Dolores praesentium, aut accusantium quos, rerum.'
         />
-        <section className="section-8 bg-light py-5">
+        <section className="section-9 bg-light py-5">
+          <div className="section-header text-center">
+            <h2>Contact Us</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est inventore possimus vel <br /> porro recusandae, libero distinctio. Incidunt fugiat dolores, quasi inventore sed dignissimos neque, provident, libero tempora animi et laudantium!</p>
+          </div>
           <div className="container">
-            <form action="">
-              <div className="row">
-                <div className="col-md-6 col-lg-6">
-                  <label htmlFor="name" className='pb-2'>Name</label>
-                  <input type="text" className='form-control' placeholder='Enter Name' />
-                </div>
-                <div className="col-md-6 col-lg-6">
-                  <label htmlFor="email" className='pb-2'>Email</label>
-                  <input type="email" className='form-control' placeholder='Enter Email' />
-                </div>
-                <div className="col-md-12 col-lg-12">
-                  <label htmlFor="subject" className='pt-2 pb-2'>Subject</label>
-                  <input type="text" className='form-control' placeholder='Enter Subject' />
-                </div>
-                <div className="col-md-12 col-lg-12">
-                  <label htmlFor="message" className='pt-2 pb-2'>Message</label>
-                  <textarea name="" id="" cols="30" rows="10" className='form-control'></textarea>
-                </div>
-                <div className="col-md-12 col-lg-12 text-center pt-3">
-                  <button type="submit" className="btn btn-primary">Submit</button>
+            <div className="row mt-5">
+              <div className="col-md-3">
+                <div className="card border shadow-0  mb-3">
+                  <div className='card-body p-4'>
+                    <h3>Call Us</h3>
+                    <div>
+                      <a href="">000-0000-000</a></div>
+                    <div>
+                      <a href="">000-0000-000</a></div>
+
+                    <h3 className='mt-4'>You can write us</h3>
+                    <div><a href="">example@mail.com</a></div>
+                    <div><a href="">example@mail.com</a></div>
+
+
+                    <h3 className='mt-4'>Address</h3>
+                    <div>12/1, Mirpur <br /> Dhaka <br /> Bangladesh</div>
+                  </div>
                 </div>
               </div>
-            </form>
+              <div className="col-md-9">
+                <div className="card border shadow-0">
+                  <div className="card-body p-5">
+                    <form action="">
+                      <div className="row">
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="" className='form-label'>Name</label>
+                          <input type="text" name='name' className='form-control form-control-lg' placeholder='Enter Name' />
+                        </div>
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="" className='form-label'>Email</label>
+                          <input type="email" name='email' className='form-control form-control-lg' placeholder='Enter Email' />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="" className='form-label'>Phone</label>
+                          <input type="text" name='phone' className='form-control form-control-lg' placeholder='Enter Phone' />
+                        </div>
+                        <div className="col-md-6 mb-4">
+                          <label htmlFor="" className='form-label'>Subject</label>
+                          <input type="text" name='Subject' className='form-control form-control-lg' placeholder='Enter Subject' />
+                        </div>
+                      </div>
+                      <div>
+                        <label htmlFor="" className='form-label'>Message</label>
+                        <textarea name="" id="" rows={5} className='form-control form-control-lg' placeholder='Enter Message'></textarea>
+                      </div>
+                      <button className='btn btn-primary large mt-3'>Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>

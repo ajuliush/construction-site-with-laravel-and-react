@@ -6,8 +6,8 @@ const Header = () => {
   return (
     <header>
       <div className="container py-3">
-        <Navbar expand="lg" fixed="top"> {/* Added fixed="top" */}
-          <Navbar.Brand href="#home" className="logo">
+        <Navbar expand="lg" fixed="top" className="container"> {/* Added fixed="top" */}
+          <Navbar.Brand href="/" className="logo">
             <span>UrbanEdge </span> Construction
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
