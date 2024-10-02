@@ -12,7 +12,7 @@ import Dashboard from './components/backend/Dashboard';
 import './assets/css/style.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import RequireAuth from './components/common/RequireAuth';
 function App() {
   return (
     <>
@@ -25,7 +25,13 @@ function App() {
           <Route path='/projects' element={<Projects />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/admin/login' element={<Login />} />
-          <Route path='/admin/dashboard' element={<Dashboard />} />
+
+          <Route path='/admin/dashboard' element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          } />
+
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
