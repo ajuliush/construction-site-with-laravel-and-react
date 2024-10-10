@@ -11,7 +11,7 @@ class UpdateServiceRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,10 @@ class UpdateServiceRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('services');
         return [
-            //
+            'title' => 'required',
+            'slug' => 'required|unique:services,slug,' . $id . ',id'
         ];
     }
 }

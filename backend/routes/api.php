@@ -17,9 +17,14 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //protected route
     Route::get('dashboard', [DashboardController::class, 'index']);
     Route::get('logout', [AuthenticationController::class, 'logout']);
-    //Services routes
-    Route::post('services', [ServiceController::class, 'store']);
-    Route::get('services', [ServiceController::class, 'index']);
 
+    //Services routes
+    Route::get('services', [ServiceController::class, 'index']);
+    Route::post('services', [ServiceController::class, 'store']);
+    Route::put('services/{id}', [ServiceController::class, 'update']);
+    Route::get('services/{id}', [ServiceController::class, 'show']);
+    Route::delete('services/{id}', [ServiceController::class, 'destroy']);
+
+    //Temp Image routes
     Route::post('temp-images', [TempImageController::class, 'store']);
 });
