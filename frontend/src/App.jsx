@@ -13,7 +13,13 @@ import './assets/css/style.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RequireAuth from './components/common/RequireAuth';
+import { AuthContext } from './components/backend/context/Auth';
+import React, { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+import { default as ShowServices } from './components/backend/services/Show';
+import { default as CreateService } from './components/backend/services/Create';
 function App() {
+  const { user } = useContext(AuthContext); // Assuming you have user context
   return (
     <>
       <BrowserRouter>
@@ -24,7 +30,7 @@ function App() {
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/projects' element={<Projects />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/admin/login' element={<Login />} />
+          <Route path='/admin/login' element={user ? <Navigate to='/admin/dashboard' /> : <Login />} />
 
           <Route path='/admin/dashboard' element={
             <RequireAuth>
@@ -32,6 +38,16 @@ function App() {
             </RequireAuth>
           } />
 
+          <Route path='/admin/services' element={
+            <RequireAuth>
+              <ShowServices />
+            </RequireAuth>
+          } />
+          <Route path='/admin/service/create' element={
+            <RequireAuth>
+              <CreateService />
+            </RequireAuth>
+          } />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
