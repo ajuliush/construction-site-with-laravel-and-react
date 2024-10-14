@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from "react-toastify"; // Import toast
 import Header from '../../common/Header';
 import Sidebar from '../../common/Sidebar';
 import Footer from '../../common/Footer';
@@ -10,20 +11,28 @@ const Show = () => {
 
     useEffect(() => {
         const fetchServices = async () => {
-            const res = await fetch(apiUrl + 'services', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': `Bearer ${token()}`
+            try {
+                const res = await fetch(apiUrl + 'services', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token()}`
+                    }
+                });
+
+                if (!res.ok) { // Check if response is not ok
+                    throw new Error(`HTTP error! status: ${res.status}`);
                 }
-            });
-            const result = await res.json();
-            setServices(result.data);
-            console.log(result);
+
+                const result = await res.json();
+                setServices(result.data);
+            } catch (error) {
+                toast.error('Failed to fetch services. Please try again later.'); // Show error notification
+            }
         }
         fetchServices();
-    }, []);
+    }, []); // Ensure this array is empty to run only once
 
     return (
         <>
@@ -51,31 +60,38 @@ const Show = () => {
                                                 <th>Name</th>
                                                 <th>Slug</th>
                                                 <th>Description</th>
+                                                <th>Content</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {
-                                                services && services.map((service, index) => {
-                                                    return (
-                                                        <tr key={service.id}>
-                                                            <td>{index + 1}</td>
-                                                            <td>{service.title}</td>
-                                                            <td>{service.slug}</td>
-                                                            <td>{service.short_description}</td>
-                                                            <td>
-                                                                {(service.status === 1) ? 'Active' : 'Block'}
-                                                            </td>
-                                                            <td>
-                                                                <a href="" className='btn btn-sm btn-primary mr-2'>Edit</a>
-                                                                <a href="" className='btn btn-sm btn-danger ms-2'>Delete</a>
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })
+                                                services && services.length > 0 ? (
+                                                    services.map((service, index) => {
+                                                        return (
+                                                            <tr key={service.id}>
+                                                                <td>{index + 1}</td>
+                                                                <td>{service.title}</td>
+                                                                <td>{service.slug}</td>
+                                                                <td>{service.short_description}</td>
+                                                                <td dangerouslySetInnerHTML={{ __html: service.content }}></td>
+                                                                <td>
+                                                                    {(service.status === 1) ? 'Active' : 'Block'}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="" className='btn btn-sm btn-primary mr-2'>Edit</a>
+                                                                    <a href="" className='btn btn-sm btn-danger ms-2'>Delete</a>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })
+                                                ) : (
+                                                    <tr>
+                                                        <td colSpan="7" className='text-center'>No services available.</td>
+                                                    </tr>
+                                                )
                                             }
-
                                         </tbody>
                                     </table>
                                 </div>
