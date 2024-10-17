@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from "react-router-dom";
 import { AuthContext } from '../backend/context/Auth';
 const Sidebar = () => {
     const { logout } = useContext(AuthContext);
@@ -7,8 +8,8 @@ const Sidebar = () => {
             <div className="card-body p-4 sidebar">
                 <h5>Sidebar</h5>
                 <ul>
-                    <li><a href={'/admin/dashboard'}>Dashboard</a></li>
-                    <li><a href="#">Services</a></li>
+                    <li><Link to={'/admin/dashboard'}>Dashboard</Link></li>
+                    <li><Link to={'/admin/services'}>Services</Link></li>
                     <li><a href="#">Projects</a></li>
                     <li><a href="#">Articles</a></li>
                     <li>

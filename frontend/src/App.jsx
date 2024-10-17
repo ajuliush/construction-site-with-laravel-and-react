@@ -18,6 +18,8 @@ import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { default as ShowServices } from './components/backend/services/Show';
 import { default as CreateService } from './components/backend/services/Create';
+import { default as EditService } from './components/backend/services/Edit';
+
 function App() {
   const { user } = useContext(AuthContext); // Assuming you have user context
   return (
@@ -46,6 +48,11 @@ function App() {
           <Route path='/admin/service/create' element={
             <RequireAuth>
               <CreateService />
+            </RequireAuth>
+          } />
+          <Route path='/admin/service/edit/:id' element={
+            <RequireAuth>
+              <EditService />
             </RequireAuth>
           } />
           <Route path='*' element={<NotFound />} />

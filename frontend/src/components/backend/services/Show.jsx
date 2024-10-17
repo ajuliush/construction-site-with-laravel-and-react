@@ -27,13 +27,34 @@ const Show = () => {
 
                 const result = await res.json();
                 setServices(result.data);
+
             } catch (error) {
                 toast.error('Failed to fetch services. Please try again later.'); // Show error notification
             }
         }
-        fetchServices();
+        fetchServices(), [];
     }, []); // Ensure this array is empty to run only once
+    const deleteService = async (id) => {
+        if (confirm('Are you sure you want to delete this service?')) {
+            const res = await fetch(apiUrl + 'services/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token()}`
+                }
+            });
+            const result = await res.json();
+            if (result.status == true) {
+                const newServices = services.filter(service => service.id !== id);
+                setServices(newServices);
+                toast.success('Service deleted successfully.'); // Show success notification
+            } else {
+                toast.error('Failed to delete service. Please try again later.'); // Show error notification
+            }
+        }
 
+    }
     return (
         <>
             <Header />
@@ -80,8 +101,8 @@ const Show = () => {
                                                                     {(service.status === 1) ? 'Active' : 'Block'}
                                                                 </td>
                                                                 <td>
-                                                                    <a href="" className='btn btn-sm btn-primary mr-2'>Edit</a>
-                                                                    <a href="" className='btn btn-sm btn-danger ms-2'>Delete</a>
+                                                                    <Link to={`/admin/service/edit/${service.id}`} className='btn btn-sm btn-primary mr-2'>Edit</Link>
+                                                                    <Link onClick={() => deleteService(service.id)} className='btn btn-sm btn-danger ms-2'>Delete</Link>
                                                                 </td>
                                                             </tr>
                                                         )

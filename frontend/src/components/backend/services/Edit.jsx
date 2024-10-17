@@ -1,25 +1,25 @@
 import React, { useState, useRef, useMemo } from "react";
 import Header from "../../common/Header";
-import Sidebar from "../../common/Sidebar";
 import Footer from "../../common/Footer";
-import { Link, useNavigate } from "react-router-dom";
-import { set, useForm } from "react-hook-form";
-import { apiUrl, token } from "../../common/Http";
-import { toast } from "react-toastify";
+import Sidebar from "../../common/Sidebar";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import JoditEditor from 'jodit-react';
-import { Placeholder } from "react-bootstrap";
+import { toast } from "react-toastify";
+import { apiUrl, token, fileUrl } from "../../common/Http";
+import { set, useForm } from "react-hook-form";
 
-
-const Create = ({ placeholder }) => {
+const Edit = ({ placeholder }) => {
     const editor = useRef(null);
     const [content, setContent] = useState('');
+    const [service, setService] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
     const [imageId, setImageId] = useState(null);
+    const params = useParams();
 
     const config = useMemo(() => (
         {
             readonly: false,
-            placeholder: placeholder || 'Content'
+            placeholder: placeholder || ''
         }),
         [placeholder]
 
@@ -29,12 +29,33 @@ const Create = ({ placeholder }) => {
         handleSubmit,
         watch,
         formState: { errors }
-    } = useForm();
+    } = useForm({
+        defaultValues: async () => {
+            const res = await fetch(apiUrl + 'services/' + params.id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${token()}`
+                }
+            });
+            const result = await res.json();
+            setContent(result.data.content);
+            setService(result.data);
+            return {
+                title: result.data.title,
+                slug: result.data.slug,
+                short_description: result.data.short_description,
+                status: result.data.status,
+
+            }
+        }
+    });
     const navigate = useNavigate();
     const onSubmit = async (data) => {
         const newData = { ...data, "content": content, "imageId": imageId }
-        const res = await fetch(apiUrl + 'services', {
-            method: 'POST',
+        const res = await fetch(apiUrl + 'services/' + params.id, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
@@ -91,7 +112,7 @@ const Create = ({ placeholder }) => {
                             <div className="card shadow border-0">
                                 <div className="card-body P-4">
                                     <div className='d-flex justify-content-between'>
-                                        <h5>Services/Create</h5>
+                                        <h5>Services/Edit</h5>
                                         <Link to="/admin/services" className="btn btn-primary">Back</Link>
                                     </div>
                                     <hr />
@@ -146,6 +167,12 @@ const Create = ({ placeholder }) => {
                                             <input onChange={handleFile} name="image" type="file" className="form-control" />
 
                                         </div>
+                                        <div className="pb-3">
+                                            {
+                                                service.image && <img src={fileUrl + 'uploads/services/small/' + service.image} alt="" />
+                                            }
+
+                                        </div>
                                         <div className="mb-3">
                                             <label htmlFor="status" className="form-label">Status</label>
                                             <select
@@ -157,7 +184,7 @@ const Create = ({ placeholder }) => {
                                                 <option value="0">Block</option>
                                             </select>
                                         </div>
-                                        <button disabled={isDisabled} className="btn btn-primary">Submit</button>
+                                        <button disabled={isDisabled} className="btn btn-primary">Update</button>
                                     </form>
                                 </div>
                             </div>
@@ -168,5 +195,5 @@ const Create = ({ placeholder }) => {
             <Footer />
         </>
     )
-};
-export default Create;
+}
+export default Edit;
