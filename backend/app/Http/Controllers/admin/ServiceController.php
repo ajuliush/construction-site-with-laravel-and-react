@@ -180,6 +180,11 @@ class ServiceController extends Controller
             // Fetch the service instance
             $service = Service::findOrFail($id); // Changed to findOrFail
 
+            // Delete associated image files if they exist
+            if ($service->image) {
+                File::delete(public_path('uploads/services/small') . '/' . $service->image);
+                File::delete(public_path('uploads/services/large') . '/' . $service->image);
+            }
             $service->delete();
             return response()->json([
                 'status' => true,

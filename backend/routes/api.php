@@ -29,12 +29,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('services/{id}', [ServiceController::class, 'show']);
     Route::delete('services/{id}', [ServiceController::class, 'destroy']);
 
-    //Priject routes
+    //Project routes
     Route::get('projects', [ProjectController::class, 'index']);
     Route::post('projects', [ProjectController::class, 'store']);
-    // Route::put('services/{id}', [ServiceController::class, 'update']);
-    // Route::get('services/{id}', [ServiceController::class, 'show']);
-    // Route::delete('services/{id}', [ServiceController::class, 'destroy']);
+    Route::put('projects/{id}', [ProjectController::class, 'update']);
+    Route::get('projects/{id}', [ProjectController::class, 'show']);
+    Route::delete('projects/{id}', [ProjectController::class, 'destroy']);
 
     //Temp Image routes
     Route::post('temp-images', [TempImageController::class, 'store']);
